@@ -33,7 +33,7 @@ movies = [
      "duration_min": 129, "actors": ["P. Diaz", "T. Chalamet"]},
 ]
 
-
+# Этап 1. Разминка: переменные, числа, math
 def average_rating(movies):
     """Возвращает среднюю оценку по каталогу"""
     if not movies:
@@ -43,7 +43,7 @@ def average_rating(movies):
 
 
 def catalog_age_stats(movies, current_year=2026):
-    """Возвращает кортеж (самый старый фильм в годах, самый новый фильм в годах, среднее)."""
+    """Возвращает кортеж (самый старый, самый новый, среднее)."""
     if not movies:
         return (0, 0, 0)
     ages = [current_year - movie["year"] for movie in movies]
@@ -54,7 +54,45 @@ def catalog_age_stats(movies, current_year=2026):
 
 
 def duration_in_hours(minutes):
-    """Переводит минуты в формат "2ч 35м", используя целочисленное деление и остаток от деления"""
+    """Переводит минуты в формат "2ч 35м"""
     h = minutes // 60
     m = minutes % 60
     return f"{h}ч {m}м"
+
+
+
+# Этап 2
+# Задача 1. Напишите функцию rating_tier(rating), 
+# которая по оценке возвращает категорию: 
+# "шедевр" (≥9), "хорошо" (7–8.9), "средне" (5–6.9), "слабо" (<5). 
+# Реализуйте ее через if/elif, а внутри используйте 
+# тернарный оператор хотя бы один раз.
+
+def rating_tier(rating):
+    if rating >= 9:
+        # Тернарный оператор: проверяем, не пустой ли рейтинг
+        return "слабо" if rating is None else "шедевр"
+    elif rating >= 7:
+        return "хорошо"
+    elif rating >= 5:
+        return "средне"
+    else:
+        return "слабо"
+
+
+# Задача 2. Напишите функцию rating_tier(rating), 
+# которая по оценке возвращает категорию: 
+# Напишите функцию decade_label(year), 
+# которая через оператор match 
+# возвращает метку "новые" (после 2020), 
+# "недавние" (2015–2020) или "старые" (раньше 2015).
+def decade_label(year):
+  match year:
+    case year if year>2020:
+      return "новые"
+    case year if year<=2020 and year>=2015 :
+      return "недавние"
+    case year if year<2015:  
+      return "старые" 
+
+
