@@ -96,3 +96,45 @@ def decade_label(year):
       return "старые" 
 
 
+# Этап 3. Циклы
+# Продемонстрируйте работу с for, while и управляющими 
+# конструкциями циклов на каталоге.
+# С помощью for и continue выведите на экран (print) названия всех фильмов, 
+# которые НЕ относятся к жанру "comedy".
+# С помощью while и break найдите первый по порядку 
+# в списке фильм с рейтингом выше 9.0; 
+# если такого фильма нет, 
+# цикл должен завершиться веткой else с сообщением "Шедевров не найдено".
+# Напишите функцию count_long_movies(movies, threshold=120), 
+# которая через for с накопительной переменной 
+# считает количество фильмов длиннее threshold минут.
+# Обязательно использовать continue в первом пункте и break — во втором. 
+# Ветка else цикла while должна 
+# быть по-настоящему задействована (проверьте и случай, когда шедевров нет). 
+# В count_long_movies нельзя использовать sum() 
+# по списку-фильтру — только накопление в цикле. 
+   
+#Задача 1
+for mov in movies:
+  if 'comedy' in mov['genres']:
+    continue
+  else:
+    print(mov['title'])   
+
+#Задача 2
+i = 0
+while i < len(movies):
+    if movies[i]["rating"] > 9.0:
+        print(f"Найден: {movies[i]['title']}")
+        break 
+    i += 1
+else:
+    print("Шедевров не найдено")
+
+#Задача 3
+def count_long_movies(movies, threshold=120):
+  i = 0
+  for mov in movies:
+    if mov['duration_min']> threshold:
+      i += 1
+  return i    
