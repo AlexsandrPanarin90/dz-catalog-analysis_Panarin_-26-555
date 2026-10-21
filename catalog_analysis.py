@@ -138,3 +138,46 @@ def count_long_movies(movies, threshold=120):
     if mov['duration_min']> threshold:
       i += 1
   return i    
+
+
+#Этап 4. Строки
+# 1) Напишите функцию normalize_title(title), 
+# которая приводит строку к формату Title Case (каждое слово с заглавной буквы) 
+# без использования str.title() напрямую: разбейте строку по пробелам 
+# и соберите заново вручную, меняя первую букву каждого слова через 
+# срез (word[0].upper() + word[1:]).
+# 2) Напишите функцию make_slug(title), которая превращает нормализованное 
+# название в «слаг» вида the-quiet-algorithm.
+# 3) Напишите функцию format_report_line(movie), возвращающую единую 
+# строку с описанием фильма. Пример результата
+# -- normalize_title("silent hours") # "Silent Hours"
+# -- make_slug("Silent Hours") # "silent-hours"
+# -- format_report_line(movies[7])
+# --  '"The Quiet Algorithm" (2024) — 9.2/10, 1ч 58м, жанры: drama, sci-fi'
+
+# Задача 1
+def normalize_title(title):
+    words = title.split()
+    # в задании нет требования, но я добавил проверку на пустую строку
+    if not words:
+        return title
+
+    title_up = words[0][0].upper() + words[0][1:]
+    for word in words[1:]:
+        title_up += " " + word[0].upper() + word[1:]
+    return title_up
+
+# Задача 2
+def make_slug(title):
+    normal = normalize_title(title)
+    return normal.lower().replace(" ", "-")
+
+# Задача 3
+def format_report_line(movie):
+    title = normalize_title(movie["title"])
+    genres_str = ", ".join(sorted(movie["genres"]))
+    duration = duration_in_hours(movie["duration_min"])
+    return (
+        f'"{title}" ({movie["year"]}) — {movie["rating"]}/10, '
+        f'{duration}, жанры: {genres_str}'
+    )
