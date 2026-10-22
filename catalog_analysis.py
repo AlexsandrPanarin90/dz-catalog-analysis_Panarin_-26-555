@@ -119,17 +119,17 @@ for mov in movies:
   if 'comedy' in mov['genres']:
     continue
   else:
-    print(mov['title'])   
+    pass# print(mov['title'])   <--- печать отключена
 
 #Задача 2
 i = 0
 while i < len(movies):
     if movies[i]["rating"] > 9.0:
-        print(f"Найден: {movies[i]['title']}")
+        pass# print(f"Найден: {movies[i]['title']}")   <--- печать отключена
         break 
     i += 1
 else:
-    print("Шедевров не найдено")
+    pass# print("Шедевров не найдено")   <--- печать отключена
 
 #Задача 3
 def count_long_movies(movies, threshold=120):
@@ -306,11 +306,12 @@ def iter_high_rated(movies, min_rating=8.0):
       yield movie
       
 for movie in iter_high_rated(movies):
-    print(format_report_line(movie))
+    # print(format_report_line(movie))   <--- печать отключена
+    pass
 
 #Задача 2
 total_duration = sum(film["duration_min"] for film in movies if film["rating"] > 7)
-print(total_duration)    
+# print(total_duration)   <--- печать отключена    
 
 #Этап 9. Итоговый отчет
 #Напишите функцию build_report(movies), которая объединяет 
@@ -345,8 +346,6 @@ def build_report(movies):
     )
     for genre, count in sorted_genres:
         print(f"  {genre} — {count}")
-
-    print(count_by_genre(movies))
 
     print("\nВсе жанры каталога:", end=" ")
     genres_set = all_genres(movies)
