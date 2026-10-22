@@ -248,3 +248,26 @@ def actor_filmography(movies):
             films[actor] = films.get(actor, [])
             films[actor].append(movie["title"])
     return films
+
+
+#Этап 8. Итераторы и генераторы
+# Задача
+# Напишите функцию-генератор iter_high_rated(movies, min_rating=8.0),
+# которая через yield лениво отдает фильмы с рейтингом не ниже min_rating. 
+# Продемонстрируйте ее работу циклом for с вызовом format_report_line. 
+# Напишите генераторное выражение, которое считает 
+# суммарную длительность всех фильмов с рейтингом выше 7 в минутах, 
+# и передайте его в sum().
+
+#Задача 1
+def iter_high_rated(movies, min_rating=8.0):
+  for movie in movies:
+    if movie['rating']>= min_rating:
+      yield movie
+      
+for movie in iter_high_rated(movies):
+    print(format_report_line(movie))
+
+#Задача 2
+total_duration = sum(film["duration_min"] for film in movies if film["rating"] > 7)
+print(total_duration)    
