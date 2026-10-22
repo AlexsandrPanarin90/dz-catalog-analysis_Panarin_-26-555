@@ -218,3 +218,33 @@ def top_n_by_rating(movies, n=3):
   for movie in movies_top:
     result.append((movie['title'], movie['rating'])) 
   return result
+
+
+#Этап 6. Словари
+#Задача
+#1) Напишите функцию count_by_genre(movies), 
+# возвращающую словарь {жанр: количество фильмов}, 
+# построенный вручную через цикл и метод dict.get() (без Counter).
+#2) Напишите функцию actor_filmography(movies), возвращающую словарь 
+# {актер: [список названий фильмов]}. 
+# С помощью генератора словаря (dict comprehension) 
+# постройте словарь {title: rating} только для фильмов с рейтингом 
+# выше среднего (используйте average_rating из этапа 1).
+
+#Задача 1
+def count_by_genre(movies):
+
+  genre_result = {}
+  for movie in movies:
+    for genre in movie['genres']:
+      genre_result[genre] = genre_result.get(genre, 0) + 1
+  return genre_result   
+
+#Задача 2
+def actor_filmography(movies):
+    films = {}
+    for movie in movies:
+        for actor in movie["actors"]:
+            films[actor] = films.get(actor, [])
+            films[actor].append(movie["title"])
+    return films
