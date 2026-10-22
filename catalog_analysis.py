@@ -250,6 +250,46 @@ def actor_filmography(movies):
     return films
 
 
+
+
+
+
+# Этап 7. Множества
+#Задача
+#Напишите функцию all_genres(movies), возвращающую множество 
+# всех уникальных жанров каталога.
+#Напишите функцию common_actors(movie1, movie2), 
+# возвращающую множество актеров, снимавшихся в обоих фильмах.
+#Напишите функцию genres_only_in_one(movies_a, movies_b), 
+# которая возвращает жанры, встречающиеся в movies_a, 
+# но не встречающиеся в movies_b.
+
+#Задача 1
+def all_genres(movies):
+  #for movie in movies:
+  all_genre = set()
+  for movie in movies:
+    all_genre.update(movie["genres"])
+  return all_genre
+
+
+#Задача 2
+def common_actors(movie1, movie2):
+  actors_mov = set()
+  act_mv1 = set(movie1['actors'])
+  act_mv2 = set(movie2['actors'])
+  actors_mov = act_mv1 & act_mv2
+  return actors_mov
+
+#Задача 3
+def genres_only_in_one(movies_a, movies_b):
+    genres_a = all_genres(movies_a)
+    genres_b = all_genres(movies_b)
+    return genres_a - genres_b
+
+
+
+
 #Этап 8. Итераторы и генераторы
 # Задача
 # Напишите функцию-генератор iter_high_rated(movies, min_rating=8.0),
@@ -271,3 +311,50 @@ for movie in iter_high_rated(movies):
 #Задача 2
 total_duration = sum(film["duration_min"] for film in movies if film["rating"] > 7)
 print(total_duration)    
+
+#Этап 9. Итоговый отчет
+#Напишите функцию build_report(movies), которая объединяет 
+#результаты всех предыдущих этапов в единый консольный отчет: 
+#общую статистику, топ-3 фильма, количество фильмов по каждому 
+#жанру и полный список уникальных жанров каталога. Пример отчета
+#Задача Отчет
+def build_report(movies):
+    """Собирает и печатает итоговый отчет по каталогу."""
+    print("ОТЧЕТ ПО КАТАЛОГУ")
+
+    avg_rating = average_rating(movies)
+    print(f"Средний рейтинг: {avg_rating}")
+
+    avg_age = catalog_age_stats(movies)[2]
+    print(f"Средний возраст фильмов: {avg_age} лет")
+    
+
+    print("\nТоп-3 фильма:")
+    top_3 = top_n_by_rating(movies, 3) 
+
+    for title, rating in top_3:
+        for movie in movies:
+            if movie["title"] == title:
+                print(f"  {format_report_line(movie)}")
+                break
+                
+    print("\nФильмов по жанрам:")
+    genre_counts = count_by_genre(movies)
+    sorted_genres = sorted(
+        genre_counts.items(), key=lambda item: item[1], reverse=True
+    )
+    for genre, count in sorted_genres:
+        print(f"  {genre} — {count}")
+
+    print(count_by_genre(movies))
+
+    print("\nВсе жанры каталога:", end=" ")
+    genres_set = all_genres(movies)
+
+    genres_sorted = sorted(genres_set)
+    print(", ".join(genres_sorted))
+
+
+
+if __name__ == "__main__":
+    build_report(movies)
