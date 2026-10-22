@@ -181,3 +181,40 @@ def format_report_line(movie):
         f'"{title}" ({movie["year"]}) — {movie["rating"]}/10, '
         f'{duration}, жанры: {genres_str}'
     )
+
+
+
+#Этап 5. Списки
+#Задача:
+#Напишите функцию titles_sorted_by_rating(movies), 
+# возвращающую список названий фильмов, отсортированных 
+# по убыванию рейтинга. Напишите функцию 
+# top_n_by_rating(movies, n=3), возвращающую список из n 
+# кортежей (title, rating) — топ по рейтингу.
+
+#Пример результата:
+#top_n_by_rating(movies, 3)
+#[("The Quiet Algorithm", 9.2), ("midnight in oslo", 8.9), 
+#("The Dune Chronicles", 8.6)]
+#Требования:
+#Сортировку выполнять через sorted() с параметром key, а не 
+# вручную через циклы сравнения. Каждая запись в top_n_by_rating — именно tuple, 
+# а не список. titles_sorted_by_rating не должна изменять исходный список movies. 
+# Подсказка key принимает функцию, которая возвращает значение для сравнения элементов; 
+# для сортировки по убыванию пригодится параметр reverse=True.
+#
+
+#Задача 1
+def titles_sorted_by_rating(movies):
+  titles_sort = sorted(movies, key = lambda x: x['rating'], reverse=True)
+  titles = [movie["title"] for movie in titles_sort]
+  return titles
+
+#Задача 2
+def top_n_by_rating(movies, n=3):
+  title_sort = sorted(movies, key=lambda x: x['rating'],reverse=True)
+  movies_top = title_sort[0:n]
+  result = []
+  for movie in movies_top:
+    result.append((movie['title'], movie['rating'])) 
+  return result
